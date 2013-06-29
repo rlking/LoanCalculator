@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import com.google.common.base.Strings;
 
+import eu.kingcastle.loancalculator.model.Loan;
+
 public class FragmentSettingsAdv extends Fragment {
     private TextView textChargesLoan;
     private EditText editChargeCredit;
@@ -52,8 +54,14 @@ public class FragmentSettingsAdv extends Fragment {
 
 	return view;
     }
-
-    private boolean validateInput() {
+    
+    public void addAdvancedValues(Loan loan) {
+	if(isValidateInput()) {
+	    
+	}
+    }
+    
+    private boolean isValidateInput() {
 	boolean inputIsValid = true;
 
 	if (Strings.isNullOrEmpty(editChargeCredit.getText().toString())) {

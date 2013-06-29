@@ -89,6 +89,7 @@ public class FragmentSchedule extends Fragment {
 			R.layout.schedule_header_text_view, inflater));
 		tableSchedule.addView(headerRow);
 
+		//TODO: extremely inefficient ... replace with list adapter 
 		for (int i = 0; i < result.length; i++) {
 		    TableRow row = new TableRow(getActivity());
 		    for (int j = 0; j < result[i].length; j++) {
@@ -102,7 +103,8 @@ public class FragmentSchedule extends Fragment {
 
 		if (showLoading) {
 		    progress.cancel();
-		    ((ActivityMain) getActivity()).mViewPager.setCurrentItem(2);
+		    ((ActivityMain) getActivity()).mViewPager
+			    .setCurrentItem(ActivityMain.ITEM_ID_SCHEDULE);
 		}
 	    }
 	}.execute(loan);

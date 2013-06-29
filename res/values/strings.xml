@@ -20,8 +20,8 @@
     <string name="interest">Interest</string>
     <string name="interest_rate">Interest rate</string>
     <string name="interest_rate_default">5% p.a.</string>
-    <!-- charges for loan -->
-    <string name="charges_loan">Charges for loan</string>
+    <!-- loan processing fee -->
+    <string name="charges_loan">Loan processing fee</string>
     <string name="charges_loan_default">0</string>
     <!-- activity charge -->
     <string name="activity_charge">Activity charge</string>

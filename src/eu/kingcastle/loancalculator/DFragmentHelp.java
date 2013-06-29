@@ -16,11 +16,10 @@ public class DFragmentHelp extends DialogFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.fragment_helpdialog, container,
+		View view = inflater.inflate(R.layout.fragment_help_dialog, container,
 				false);
 		getDialog().setTitle(R.string.help);
 		textHelp = (TextView) view.findViewById(R.id.textHelp);
-		textHelp.setEnabled(false);
 		textHelp.setText("fsfasfasd\nfasdfsadfsadfasd\nfasdfasfsdafasd");
 		
 		return view;

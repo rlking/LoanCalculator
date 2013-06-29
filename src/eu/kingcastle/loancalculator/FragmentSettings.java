@@ -22,7 +22,7 @@ import eu.kingcastle.loancalculator.model.Loan;
 import eu.kingcastle.loancalculator.model.RepaymentMode;
 import eu.kingcastle.loancalculator.model.RepaymentPeriod;
 
-public class FragmentMain extends Fragment {
+public class FragmentSettings extends Fragment {
 	private Button buttonCalculate;
 	private Button buttonRepaymentMode;
 	private Button buttonRepaymentPeriod;
@@ -39,7 +39,7 @@ public class FragmentMain extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.fragment_main, null);
+		View view = inflater.inflate(R.layout.fragment_settings, null);
 
 		buttonCalculate = ((Button) view.findViewById(R.id.buttonCalculate));
 		buttonRepaymentMode = ((Button) view
@@ -73,7 +73,7 @@ public class FragmentMain extends Fragment {
 				final Loan loan = new Loan(amountLoan, interestRate, life,
 						repaymentMode, repaymentPeriod);
 
-				((ActivityMain) getActivity()).schedule.updateTable(loan);
+				((ActivityMain) getActivity()).schedule.updateTable(loan, true);
 			}
 		});
 

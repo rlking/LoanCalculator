@@ -24,10 +24,12 @@ public class FragmentSchedule extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 	View view = inflater.inflate(R.layout.fragment_schedule, container, false);
 	tableSchedule = (TableLayout) view.findViewById(R.id.tableLayoutSchedule);
+	// fragment gets recreated from pager class during paging, so don't show
+	// up the loading dialog
 	if (loan != null) {
-	    updateTable(loan);
+	    updateTable(loan, false);
 	} else if (savedInstanceState != null) {
-	    updateTable((Loan) savedInstanceState.getParcelable("loan"));
+	    updateTable((Loan) savedInstanceState.getParcelable("loan"), false);
 	}
 	return view;
     }
@@ -38,7 +40,8 @@ public class FragmentSchedule extends Fragment {
 	outState.putParcelable("loan", loan);
     }
 
-    public void updateTable(Loan loan) {
+    // TODO: split loading dialog/calculation apart
+    public void updateTable(Loan loan, final boolean showLoading) {
 	if (loan == null) {
 	    return;
 	}
@@ -57,7 +60,9 @@ public class FragmentSchedule extends Fragment {
 	    protected void onPreExecute() {
 		progress = new ProgressDialog(getActivity());
 		progress.setMessage(getString(R.string.loading));
-		progress.show();
+		if (showLoading) {
+		    progress.show();
+		}
 	    }
 
 	    @Override
@@ -94,10 +99,12 @@ public class FragmentSchedule extends Fragment {
 		    }
 		    tableSchedule.addView(row);
 		}
-		
-		progress.cancel();
-		((ActivityMain)getActivity()).mViewPager.setCurrentItem(1);
-	    }	    
+
+		if (showLoading) {
+		    progress.cancel();
+		    ((ActivityMain) getActivity()).mViewPager.setCurrentItem(2);
+		}
+	    }
 	}.execute(loan);
 
     }

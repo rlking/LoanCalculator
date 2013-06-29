@@ -9,9 +9,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
 public class ActivityMain extends FragmentActivity {
-    public static final int RESULT_LOAN = 0;
-    public static final String RESULT_DATA_LOAN = "loan";
-    FragmentMain main;
+    FragmentSettings settings;
+    FragmentSettingsAdv settingsAdv;
     FragmentSchedule schedule;
     MyPagerAdapter myPagerAdapter;
     ViewPager mViewPager;
@@ -25,14 +24,23 @@ public class ActivityMain extends FragmentActivity {
 	mViewPager = (ViewPager) findViewById(R.id.pager);
 	mViewPager.setAdapter(myPagerAdapter);
 
-	// get or create main fragment
+	// get or create settings fragment
 	// so we are always using the correct reference
 	Fragment fragment = getSupportFragmentManager().findFragmentByTag(
 		"android:switcher:" + mViewPager.getId() + ":" + myPagerAdapter.getItemId(0));
 	if (fragment == null) {
-	    main = new FragmentMain();
+	    settings = new FragmentSettings();
 	} else {
-	    main = (FragmentMain) fragment;
+	    settings = (FragmentSettings) fragment;
+	}
+
+	// get or create advanced settings fragment
+	fragment = getSupportFragmentManager().findFragmentByTag(
+		"android:switcher:" + mViewPager.getId() + ":" + myPagerAdapter.getItemId(1));
+	if (fragment == null) {
+	    settingsAdv = new FragmentSettingsAdv();
+	} else {
+	    settingsAdv = (FragmentSettingsAdv) fragment;
 	}
 
 	// get or create schedule fragment
@@ -43,6 +51,9 @@ public class ActivityMain extends FragmentActivity {
 	} else {
 	    schedule = (FragmentSchedule) fragment;
 	}
+	
+	//set current to settings
+	mViewPager.setCurrentItem(1);
     }
 
     public class MyPagerAdapter extends FragmentPagerAdapter {
@@ -56,9 +67,12 @@ public class ActivityMain extends FragmentActivity {
 	    Fragment fragment = null;
 	    switch (i) {
 	    case 0:
-		fragment = main;
+		fragment = settingsAdv;
 		break;
 	    case 1:
+		fragment = settings;
+		break;
+	    case 2:
 		fragment = schedule;
 		break;
 	    default:
@@ -70,15 +84,17 @@ public class ActivityMain extends FragmentActivity {
 
 	@Override
 	public int getCount() {
-	    return 2;
+	    return 3;
 	}
 
 	@Override
 	public CharSequence getPageTitle(int position) {
 	    switch (position) {
 	    case 0:
-		return getString(R.string.action_settings);
+		return getString(R.string.settings_advanced);
 	    case 1:
+		return getString(R.string.settings);
+	    case 2:
 		return getString(R.string.amortisationSchedule);
 	    default:
 		throw new IllegalArgumentException("pager item not implemented");

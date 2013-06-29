@@ -20,7 +20,7 @@
             <TableRow>
 
                 <TextView
-                    android:id="@+id/textView1"
+                    android:id="@+id/textLoanAmount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawableRight="@drawable/info"
@@ -39,7 +39,7 @@
             <TableRow>
 
                 <TextView
-                    android:id="@+id/textView3"
+                    android:id="@+id/textRuntime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawableRight="@drawable/info"
@@ -58,14 +58,14 @@
             <TableRow>
 
                 <TextView
-                    android:id="@+id/textView2"
+                    android:id="@+id/textInterest"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawableRight="@drawable/info"
                     android:text="@string/interest_rate" />
 
                 <TextView
-                    android:id="@+id/textInterest"
+                    android:id="@+id/textInterestCurrent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"

@@ -3,6 +3,7 @@
 
     <string name="app_name">Loan Calculator</string>
     <string name="action_settings">Settings</string>
+    <string name="help">Help</string>
     <string name="loan_amount">Loan amount</string>
     <string name="runtime">Runtime</string>
     <string name="runtime_default">5</string>

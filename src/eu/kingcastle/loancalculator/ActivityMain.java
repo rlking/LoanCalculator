@@ -26,6 +26,7 @@ public class ActivityMain extends FragmentActivity {
 	mViewPager.setAdapter(myPagerAdapter);
 
 	// get or create main fragment
+	// so we are always using the correct reference
 	Fragment fragment = getSupportFragmentManager().findFragmentByTag(
 		"android:switcher:" + mViewPager.getId() + ":" + myPagerAdapter.getItemId(0));
 	if (fragment == null) {

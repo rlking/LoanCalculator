@@ -21,8 +21,9 @@
     <string name="interest_rate">Interest rate</string>
     <string name="interest_rate_default">5% p.a.</string>
     <!-- loan processing fee -->
-    <string name="charges_loan">Loan processing fee</string>
-    <string name="charges_loan_default">0</string>
+    <string name="processing_fee">Loan processing fee</string>
+    <string name="processing_fee_default">0.0%</string>
+    <string name="processing_fee_help">Percentual amount of the loan, paid immediately after the loan is granted.</string>
     <!-- activity charge -->
     <string name="activity_charge">Activity charge</string>
     <string name="activity_charge_default">0</string>

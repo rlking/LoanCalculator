@@ -26,7 +26,7 @@ public class FragmentSettings extends Fragment {
 	private Button buttonCalculate;
 	private Button buttonRepaymentMode;
 	private Button buttonRepaymentPeriod;
-	private SeekBar seekBarInteres;
+	private SeekBar seekBarInterest;
 	private TextView textInterestCurrent;
 	private TextView textLoanAmount;
 	private EditText editAmountLoan;
@@ -46,7 +46,7 @@ public class FragmentSettings extends Fragment {
 				.findViewById(R.id.button_repayment_mode));
 		buttonRepaymentPeriod = ((Button) view
 				.findViewById(R.id.button_repayment_period));
-		seekBarInteres = ((SeekBar) view.findViewById(R.id.seekBarInterest));
+		seekBarInterest = ((SeekBar) view.findViewById(R.id.seekBarInterest));
 		textInterestCurrent = ((TextView) view
 				.findViewById(R.id.textInterestCurrent));
 		textLoanAmount = ((TextView) view.findViewById(R.id.textLoanAmount));
@@ -69,15 +69,16 @@ public class FragmentSettings extends Fragment {
 				int amountLoan = Integer.parseInt(editAmountLoan.getText()
 						.toString());
 				int life = Integer.parseInt(editLife.getText().toString());
-
+				
 				final Loan loan = new Loan(amountLoan, interestRate, life,
 						repaymentMode, repaymentPeriod);
 
+				((ActivityMain) getActivity()).settingsAdv.addAdvancedValues(loan);
 				((ActivityMain) getActivity()).schedule.updateTable(loan, true);
 			}
 		});
 
-		seekBarInteres
+		seekBarInterest
 				.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 
 					@Override

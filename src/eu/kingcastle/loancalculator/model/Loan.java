@@ -8,162 +8,186 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Loan implements Parcelable {
-    private final double amountLoan;
-    private final double interestRatePerAnnum;
-    private final int lifeTime;
-    private final RepaymentMode mode;
-    private final RepaymentPeriod time;
+	private final double amountLoan;
+	private final double interestRatePerAnnum;
+	private final int lifeTime;
+	private final RepaymentMode mode;
+	private final RepaymentPeriod time;
+	private double processingFee;
+	private int activityCharge;
 
-    public Loan(double amountLoan, double interestRate, int lifeTime, RepaymentMode mode,
-	    RepaymentPeriod time) {
-	this.amountLoan = amountLoan;
-	this.interestRatePerAnnum = interestRate;
-	this.lifeTime = lifeTime;
-	this.mode = mode;
-	this.time = time;
-    }
-
-    public double getAnnuity() {
-
-	double periodInterestRate = 0;
-	int periodLifeTime = 0;
-
-	switch (time) {
-	case ANNUAL:
-	    periodInterestRate = interestRatePerAnnum;
-	    periodLifeTime = lifeTime;
-	    break;
-	case QUARTERLY:
-	    periodInterestRate = interestRatePerAnnum / 4;
-	    periodLifeTime = lifeTime * 4;
-	    break;
-	case MONTHLY:
-	    periodInterestRate = interestRatePerAnnum / 12;
-	    periodLifeTime = lifeTime * 12;
-	    break;
-	default:
-	    return 0;
+	public Loan(double amountLoan, double interestRate, int lifeTime,
+			RepaymentMode mode, RepaymentPeriod time) {
+		this.amountLoan = amountLoan;
+		this.interestRatePerAnnum = interestRate;
+		this.lifeTime = lifeTime;
+		this.mode = mode;
+		this.time = time;
 	}
 
-	double A = amountLoan
-		* ((periodInterestRate * Math.pow(periodInterestRate + 1, periodLifeTime)) / (Math
-			.pow(periodInterestRate + 1, periodLifeTime) - 1));
-	return A;
-    }
+	public double getAnnuity() {
 
-    public String[][] getSchedule() {
+		double periodInterestRate = 0;
+		int periodLifeTime = 0;
 
-	double periodInterestRate = 0;
-	int periodLifeTime = 0;
+		switch (time) {
+		case ANNUAL:
+			periodInterestRate = interestRatePerAnnum;
+			periodLifeTime = lifeTime;
+			break;
+		case QUARTERLY:
+			periodInterestRate = interestRatePerAnnum / 4;
+			periodLifeTime = lifeTime * 4;
+			break;
+		case MONTHLY:
+			periodInterestRate = interestRatePerAnnum / 12;
+			periodLifeTime = lifeTime * 12;
+			break;
+		default:
+			return 0;
+		}
 
-	switch (time) {
-	case ANNUAL:
-	    periodInterestRate = interestRatePerAnnum;
-	    periodLifeTime = lifeTime;
-	    break;
-	case QUARTERLY:
-	    periodInterestRate = interestRatePerAnnum / 4;
-	    periodLifeTime = lifeTime * 4;
-	    break;
-	case MONTHLY:
-	    periodInterestRate = interestRatePerAnnum / 12;
-	    periodLifeTime = lifeTime * 12;
-	    break;
-	default:
-	    return null;
+		double A = amountLoan
+				* ((periodInterestRate * Math.pow(periodInterestRate + 1,
+						periodLifeTime)) / (Math.pow(periodInterestRate + 1,
+						periodLifeTime) - 1));
+		return A;
 	}
 
-	String[][] schedule = new String[periodLifeTime][5];
-	final double A = getAnnuity();
-	double interestToPay = 0;
-	double repaymentOfLoan = 0;
-	double restOfLoan = amountLoan;
+	public String[][] getSchedule() {
 
-	// DecimalFormat df = new DecimalFormat("#.##");
-	DecimalFormat df = new DecimalFormat("#");
+		double periodInterestRate = 0;
+		int periodLifeTime = 0;
 
-	for (int period = 0; period < periodLifeTime; period++) {
-	    String[] row = new String[5];
+		switch (time) {
+		case ANNUAL:
+			periodInterestRate = interestRatePerAnnum;
+			periodLifeTime = lifeTime;
+			break;
+		case QUARTERLY:
+			periodInterestRate = interestRatePerAnnum / 4;
+			periodLifeTime = lifeTime * 4;
+			break;
+		case MONTHLY:
+			periodInterestRate = interestRatePerAnnum / 12;
+			periodLifeTime = lifeTime * 12;
+			break;
+		default:
+			return null;
+		}
 
-	    interestToPay = restOfLoan * periodInterestRate;
-	    repaymentOfLoan = A - interestToPay;
-	    restOfLoan -= repaymentOfLoan;
+		String[][] schedule = new String[periodLifeTime][5];
+		final double A = getAnnuity();
+		double interestToPay = 0;
+		double repaymentOfLoan = 0;
+		double restOfLoan = amountLoan;
 
-	    row[0] = getPeriodReadable(period);
-	    row[1] = df.format(repaymentOfLoan); // repayment of loan
-	    row[2] = df.format(interestToPay); // interest to pay
-	    row[3] = df.format(A); // payment
-	    row[4] = df.format(Math.abs(restOfLoan));
+		// DecimalFormat df = new DecimalFormat("#.##");
+		DecimalFormat df = new DecimalFormat("#");
 
-	    schedule[period] = row;
+		for (int period = 0; period < periodLifeTime; period++) {
+			String[] row = new String[5];
+
+			interestToPay = restOfLoan * periodInterestRate;
+			repaymentOfLoan = A - interestToPay;
+			restOfLoan -= repaymentOfLoan;
+
+			row[0] = getPeriodReadable(period);
+			row[1] = df.format(repaymentOfLoan); // repayment of loan
+			row[2] = df.format(interestToPay); // interest to pay
+			row[3] = df.format(A); // payment
+			row[4] = df.format(Math.abs(restOfLoan));
+
+			schedule[period] = row;
+		}
+
+		return schedule;
 	}
 
-	return schedule;
-    }
-
-    private String getPeriodReadable(int periodLifetime) {
-	switch (time) {
-	case ANNUAL:
-	    return (periodLifetime + 1) + "";
-	case QUARTERLY:
-	    return ((periodLifetime % 4) + 1) + "/" + ((periodLifetime / 4) + 1);
-	case MONTHLY:
-	    return Strings.padStart(((periodLifetime % 12) + 1) + "", 2, '0') + "/"
-		    + ((periodLifetime / 12) + 1);
-	default:
-	    return null;
-	}
-    }
-
-    public double getAmountLoan() {
-	return amountLoan;
-    }
-
-    public double getInterestRate() {
-	return interestRatePerAnnum;
-    }
-
-    public int getLifeTime() {
-	return lifeTime;
-    }
-
-    public RepaymentMode getMode() {
-	return mode;
-    }
-
-    public RepaymentPeriod getTime() {
-	return time;
-    }
-
-    public static final Parcelable.Creator<Loan> CREATOR = new Parcelable.Creator<Loan>() {
-	public Loan createFromParcel(Parcel in) {
-	    return new Loan(in);
+	private String getPeriodReadable(int periodLifetime) {
+		switch (time) {
+		case ANNUAL:
+			return (periodLifetime + 1) + "";
+		case QUARTERLY:
+			return ((periodLifetime % 4) + 1) + "/"
+					+ ((periodLifetime / 4) + 1);
+		case MONTHLY:
+			return Strings.padStart(((periodLifetime % 12) + 1) + "", 2, '0')
+					+ "/" + ((periodLifetime / 12) + 1);
+		default:
+			return null;
+		}
 	}
 
-	public Loan[] newArray(int size) {
-	    return new Loan[size];
+	public double getAmountLoan() {
+		return amountLoan;
 	}
-    };
 
-    private Loan(Parcel in) {
-	this.amountLoan = in.readDouble();
-	this.interestRatePerAnnum = in.readDouble();
-	this.lifeTime = in.readInt();
-	this.mode = (RepaymentMode) in.readSerializable();
-	this.time = (RepaymentPeriod) in.readSerializable();
-    }
+	public double getInterestRate() {
+		return interestRatePerAnnum;
+	}
 
-    @Override
-    public int describeContents() {
-	return 0;
-    }
+	public int getLifeTime() {
+		return lifeTime;
+	}
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-	dest.writeDouble(amountLoan);
-	dest.writeDouble(interestRatePerAnnum);
-	dest.writeInt(lifeTime);
-	dest.writeSerializable(mode);
-	dest.writeSerializable(time);
-    }
+	public RepaymentMode getMode() {
+		return mode;
+	}
+
+	public RepaymentPeriod getTime() {
+		return time;
+	}
+	
+	public double getProcessingFee() {
+		return processingFee;
+	}
+	
+	public void setProcessingFee(double processingFee) {
+		this.processingFee = processingFee; 
+	}
+	
+	public int getActivityCharge() {
+		return activityCharge;
+	}
+	
+	public void setActivityCharg(int activityCharge) {
+		this.activityCharge = activityCharge;
+	}
+
+	public static final Parcelable.Creator<Loan> CREATOR = new Parcelable.Creator<Loan>() {
+		public Loan createFromParcel(Parcel in) {
+			return new Loan(in);
+		}
+
+		public Loan[] newArray(int size) {
+			return new Loan[size];
+		}
+	};
+
+	private Loan(Parcel in) {
+		this.amountLoan = in.readDouble();
+		this.interestRatePerAnnum = in.readDouble();
+		this.lifeTime = in.readInt();
+		this.mode = (RepaymentMode) in.readSerializable();
+		this.time = (RepaymentPeriod) in.readSerializable();
+		this.processingFee = in.readDouble();
+		this.activityCharge = in.readInt();
+	}
+
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeDouble(amountLoan);
+		dest.writeDouble(interestRatePerAnnum);
+		dest.writeInt(lifeTime);
+		dest.writeSerializable(mode);
+		dest.writeSerializable(time);
+		dest.writeDouble(processingFee);
+		dest.writeInt(activityCharge);
+	}
 }

@@ -26,6 +26,7 @@
     <string name="processing_fee_help">Percentual amount of the loan, paid immediately after the loan is granted.</string>
     <!-- activity charge -->
     <string name="activity_charge">Activity charge</string>
+    <string name="activity_charge_help">Activity charge is assumed to be paid each year. Achtivity charge is as usual not included in the effective rate calculation.</string>
     <string name="activity_charge_default">0</string>
     <!-- misc -->
     <string name="amortisationSchedule">Amortization schedule</string>
@@ -33,6 +34,7 @@
     <string name="repayment">Repayment</string>
     <string name="payment">Payment</string>
     <string name="loan_left">Loan left</string>
+    <string name="misc">Misc</string>
     <string name="repayment_period">Repayment period</string>
     <string name="repayment_period_annual">Annual</string>
     <string name="repayment_period_quarterly">Quarterly</string>

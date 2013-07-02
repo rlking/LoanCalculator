@@ -42,7 +42,7 @@ public class FragmentSettingsAdv extends Fragment {
 				.findViewById(R.id.seekProcessingFee);
 
 		editActivityCharge
-				.setFilters(new InputFilter[] { new InputFilterMinMax(0, 100) });
+				.setFilters(new InputFilter[] { new InputFilterMinMax(0, 100000) });
 
 		textProcessingFee.setOnClickListener(new OnClickListener() {
 
@@ -62,6 +62,9 @@ public class FragmentSettingsAdv extends Fragment {
 			public void onClick(View v) {
 				FragmentManager fm = getActivity().getSupportFragmentManager();
 				DFragmentHelp help = new DFragmentHelp();
+				Bundle data = new Bundle();
+				data.putInt("helpStringId", R.string.activity_charge_help);
+				help.setArguments(data);
 				help.show(fm, "fragment_help");
 			}
 		});
@@ -92,6 +95,8 @@ public class FragmentSettingsAdv extends Fragment {
 	public void addAdvancedValues(Loan loan) {
 		if (isValidateInput()) {
 			loan.setProcessingFee(processingFee);
+			loan.setActivityCharg(Integer.parseInt(editActivityCharge.getText()
+					.toString()));
 		}
 	}
 

@@ -64,10 +64,11 @@ public final class R {
         /**  activity charge 
          */
         public static final int activity_charge=0x7f050012;
-        public static final int activity_charge_default=0x7f050013;
+        public static final int activity_charge_default=0x7f050014;
+        public static final int activity_charge_help=0x7f050013;
         /**  misc 
          */
-        public static final int amortisationSchedule=0x7f050014;
+        public static final int amortisationSchedule=0x7f050015;
         /**  general 
          */
         public static final int app_name=0x7f050000;
@@ -85,23 +86,24 @@ public final class R {
          */
         public static final int loan_amount=0x7f050005;
         public static final int loan_amount_default=0x7f050006;
-        public static final int loan_left=0x7f050018;
-        public static final int payment=0x7f050017;
-        public static final int period=0x7f050015;
+        public static final int loan_left=0x7f050019;
+        public static final int misc=0x7f05001a;
+        public static final int payment=0x7f050018;
+        public static final int period=0x7f050016;
         /**  loan processing fee 
          */
         public static final int processing_fee=0x7f05000f;
         public static final int processing_fee_default=0x7f050010;
         public static final int processing_fee_help=0x7f050011;
-        public static final int repayment=0x7f050016;
-        public static final int repayment_mode=0x7f05001d;
-        public static final int repayment_mode_annuity=0x7f05001e;
-        public static final int repayment_mode_bullet=0x7f05001f;
-        public static final int repayment_mode_schedule=0x7f050020;
-        public static final int repayment_period=0x7f050019;
-        public static final int repayment_period_annual=0x7f05001a;
-        public static final int repayment_period_monthly=0x7f05001c;
-        public static final int repayment_period_quarterly=0x7f05001b;
+        public static final int repayment=0x7f050017;
+        public static final int repayment_mode=0x7f05001f;
+        public static final int repayment_mode_annuity=0x7f050020;
+        public static final int repayment_mode_bullet=0x7f050021;
+        public static final int repayment_mode_schedule=0x7f050022;
+        public static final int repayment_period=0x7f05001b;
+        public static final int repayment_period_annual=0x7f05001c;
+        public static final int repayment_period_monthly=0x7f05001e;
+        public static final int repayment_period_quarterly=0x7f05001d;
         /**  runtime 
          */
         public static final int runtime=0x7f050008;

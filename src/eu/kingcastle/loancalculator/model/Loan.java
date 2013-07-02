@@ -25,27 +25,15 @@ public class Loan implements Parcelable {
 		this.time = time;
 	}
 
+	/**
+	 * if the repayment period is higher (i.e monthly) than the interest period
+	 * (p.a.), then interest will be payed on each repayment period
+	 * 
+	 * @return
+	 */
 	public double getAnnuity() {
-
-		double periodInterestRate = 0;
-		int periodLifeTime = 0;
-
-		switch (time) {
-		case ANNUAL:
-			periodInterestRate = interestRatePerAnnum;
-			periodLifeTime = lifeTime;
-			break;
-		case QUARTERLY:
-			periodInterestRate = interestRatePerAnnum / 4;
-			periodLifeTime = lifeTime * 4;
-			break;
-		case MONTHLY:
-			periodInterestRate = interestRatePerAnnum / 12;
-			periodLifeTime = lifeTime * 12;
-			break;
-		default:
-			return 0;
-		}
+		double periodInterestRate = interestRatePerAnnum / time.getPeriod();
+		int periodLifeTime = lifeTime * time.getPeriod();
 
 		double A = amountLoan
 				* ((periodInterestRate * Math.pow(periodInterestRate + 1,
@@ -55,28 +43,10 @@ public class Loan implements Parcelable {
 	}
 
 	public String[][] getSchedule() {
+		double periodInterestRate = interestRatePerAnnum / time.getPeriod();
+		int periodLifeTime = lifeTime * time.getPeriod();
 
-		double periodInterestRate = 0;
-		int periodLifeTime = 0;
-
-		switch (time) {
-		case ANNUAL:
-			periodInterestRate = interestRatePerAnnum;
-			periodLifeTime = lifeTime;
-			break;
-		case QUARTERLY:
-			periodInterestRate = interestRatePerAnnum / 4;
-			periodLifeTime = lifeTime * 4;
-			break;
-		case MONTHLY:
-			periodInterestRate = interestRatePerAnnum / 12;
-			periodLifeTime = lifeTime * 12;
-			break;
-		default:
-			return null;
-		}
-
-		String[][] schedule = new String[periodLifeTime][5];
+		String[][] schedule = new String[periodLifeTime][6];
 		final double A = getAnnuity();
 		double interestToPay = 0;
 		double repaymentOfLoan = 0;
@@ -86,17 +56,20 @@ public class Loan implements Parcelable {
 		DecimalFormat df = new DecimalFormat("#");
 
 		for (int period = 0; period < periodLifeTime; period++) {
-			String[] row = new String[5];
+			String[] row = new String[6];
 
 			interestToPay = restOfLoan * periodInterestRate;
 			repaymentOfLoan = A - interestToPay;
 			restOfLoan -= repaymentOfLoan;
+			int currentActivityCharge = (period % time.getPeriod() == 0) ? activityCharge
+					: 0;
 
 			row[0] = getPeriodReadable(period);
 			row[1] = df.format(repaymentOfLoan); // repayment of loan
 			row[2] = df.format(interestToPay); // interest to pay
-			row[3] = df.format(A); // payment
+			row[3] = df.format(A + currentActivityCharge); // payment
 			row[4] = df.format(Math.abs(restOfLoan));
+			row[5] = currentActivityCharge + "";
 
 			schedule[period] = row;
 		}
@@ -138,19 +111,19 @@ public class Loan implements Parcelable {
 	public RepaymentPeriod getTime() {
 		return time;
 	}
-	
+
 	public double getProcessingFee() {
 		return processingFee;
 	}
-	
+
 	public void setProcessingFee(double processingFee) {
-		this.processingFee = processingFee; 
+		this.processingFee = processingFee;
 	}
-	
+
 	public int getActivityCharge() {
 		return activityCharge;
 	}
-	
+
 	public void setActivityCharg(int activityCharge) {
 		this.activityCharge = activityCharge;
 	}

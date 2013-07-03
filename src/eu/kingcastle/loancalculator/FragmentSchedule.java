@@ -1,21 +1,24 @@
 package eu.kingcastle.loancalculator;
 
+import java.util.ArrayList;
+
+import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TableLayout;
-import android.widget.TableRow;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
-import eu.kingcastle.loancalculator.R;
 import eu.kingcastle.loancalculator.model.Loan;
 
-public class FragmentSchedule extends Fragment {
-	private TableLayout tableSchedule;
+public class FragmentSchedule extends ListFragment {
 	private Loan loan;
+	private final ArrayList<String[]> data = new ArrayList<String[]>();
+	private ScheduleAdapter arrayAdapter;
 
 	public FragmentSchedule() {
 	}
@@ -25,8 +28,6 @@ public class FragmentSchedule extends Fragment {
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_schedule, container,
 				false);
-		tableSchedule = (TableLayout) view
-				.findViewById(R.id.tableLayoutSchedule);
 		// fragment gets recreated from pager class during paging, so don't show
 		// up the loading dialog
 		if (loan != null) {
@@ -43,6 +44,15 @@ public class FragmentSchedule extends Fragment {
 		outState.putParcelable("loan", loan);
 	}
 
+	@Override
+	public void onStart() {
+		super.onStart();
+
+		arrayAdapter = new ScheduleAdapter(getActivity(), data);
+		setListAdapter(arrayAdapter);
+		getListView().setTextFilterEnabled(true);
+	}
+
 	// TODO: split loading dialog/calculation apart
 	public void updateTable(Loan loan, final boolean showLoading) {
 		if (loan == null) {
@@ -52,11 +62,11 @@ public class FragmentSchedule extends Fragment {
 
 		// might not be set (fragment is not created immediately on orientation
 		// change)
-		if (tableSchedule == null) {
+		if (arrayAdapter == null) {
 			return;
 		}
 
-		new AsyncTask<Loan, Void, String[][]>() {
+		new AsyncTask<Loan, Void, ArrayList<String[]>>() {
 			ProgressDialog progress;
 
 			@Override
@@ -69,43 +79,18 @@ public class FragmentSchedule extends Fragment {
 			}
 
 			@Override
-			protected String[][] doInBackground(Loan... params) {
-				return params[0].getSchedule();
+			protected ArrayList<String[]> doInBackground(Loan... params) {
+				String schedule[][] = params[0].getSchedule();
+				data.clear();
+				for (int i = 0; i < schedule.length; i++) {
+					data.add(schedule[i]);
+				}
+				return data;
 			}
 
 			@Override
-			protected void onPostExecute(String[][] result) {
-				tableSchedule.removeAllViews();
-
-				LayoutInflater inflater = getActivity().getLayoutInflater();
-
-				TableRow headerRow = new TableRow(getActivity());
-				headerRow.addView(getTextView(getString(R.string.period),
-						R.layout.schedule_header_text_view, inflater));
-				headerRow.addView(getTextView(getString(R.string.repayment),
-						R.layout.schedule_header_text_view, inflater));
-				headerRow.addView(getTextView(getString(R.string.interest),
-						R.layout.schedule_header_text_view, inflater));
-				headerRow.addView(getTextView(getString(R.string.payment),
-						R.layout.schedule_header_text_view, inflater));
-				headerRow.addView(getTextView(getString(R.string.loan_left),
-						R.layout.schedule_header_text_view, inflater));
-				headerRow.addView(getTextView(getString(R.string.misc),
-						R.layout.schedule_header_text_view, inflater));
-				tableSchedule.addView(headerRow);
-
-				// TODO: extremely inefficient ... replace with list adapter
-				for (int i = 0; i < result.length; i++) {
-					TableRow row = new TableRow(getActivity());
-					for (int j = 0; j < result[i].length; j++) {
-						TextView col = (TextView) inflater.inflate(
-								R.layout.schedule_row_text_view, null);
-						col.setText(result[i][j]);
-						row.addView(col);
-					}
-					tableSchedule.addView(row);
-				}
-
+			protected void onPostExecute(ArrayList<String[]> result) {
+				arrayAdapter.notifyDataSetChanged();
 				if (showLoading) {
 					progress.cancel();
 					((ActivityMain) getActivity()).mViewPager
@@ -116,9 +101,111 @@ public class FragmentSchedule extends Fragment {
 
 	}
 
-	private TextView getTextView(String text, int R, LayoutInflater inflater) {
-		TextView textView = (TextView) inflater.inflate(R, null);
-		textView.setText(text);
-		return textView;
+	/**
+	 * Very fast adapter with custom views. Checkout
+	 * http://www.youtube.com/watch?v=wDBM6wVEO70&t=40m45s
+	 * 
+	 */
+	private static class ScheduleAdapter extends BaseAdapter {
+
+		enum ItemType {
+			NORMAL;
+		}
+
+		final Context context;
+		final ArrayList<String[]> data;
+
+		public ScheduleAdapter(Context context, ArrayList<String[]> data) {
+			this.context = context;
+			this.data = data;
+		}
+
+		@Override
+		public int getItemViewType(int position) {
+			return ItemType.NORMAL.ordinal();
+		}
+
+		@Override
+		public int getViewTypeCount() {
+			return ItemType.values().length;
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			ViewHolder holder;
+
+			final String[] itemData = data.get(position);
+			final ItemType type = ItemType.values()[getItemViewType(position)];
+
+			// create new view if null or type changed
+			if (convertView == null
+					|| ((ViewHolder) convertView.getTag()).type != type) {
+				int res;
+				switch (type) {
+				case NORMAL:
+					res = R.layout.schedule_row_item;
+					break;
+				default:
+					throw new IllegalArgumentException();
+				}
+
+				convertView = ((Activity) context).getLayoutInflater().inflate(
+						res, parent, false);
+				holder = new ViewHolder();
+				holder.textPeriod = (TextView) convertView
+						.findViewById(R.id.textPeriod);
+				holder.textRepayment = (TextView) convertView
+						.findViewById(R.id.textRepayment);
+				holder.textInterest = (TextView) convertView
+						.findViewById(R.id.textInterest);
+				holder.textPayment = (TextView) convertView
+						.findViewById(R.id.textPayment);
+				holder.textLoanLeft = (TextView) convertView
+						.findViewById(R.id.textLoanLeft);
+				holder.textMisc = (TextView) convertView
+						.findViewById(R.id.textMisc);
+				holder.type = type;
+
+				convertView.setTag(holder);
+			} else {
+				holder = (ViewHolder) convertView.getTag();
+			}
+
+			// set text in holder
+			holder.textPeriod.setText(itemData[0]);
+			holder.textRepayment.setText(itemData[1]);
+			holder.textInterest.setText(itemData[2]);
+			holder.textPayment.setText(itemData[3]);
+			holder.textLoanLeft.setText(itemData[4]);
+			holder.textMisc.setText(itemData[5]);
+
+			return convertView;
+		}
+
+		// fast references, so no need for slow findViewById
+		static class ViewHolder {
+			TextView textPeriod;
+			TextView textRepayment;
+			TextView textInterest;
+			TextView textPayment;
+			TextView textLoanLeft;
+			TextView textMisc;
+			ItemType type;
+		}
+
+		@Override
+		public int getCount() {
+			return data.size();
+		}
+
+		@Override
+		public String[] getItem(int position) {
+			return data.get(position);
+		}
+
+		@Override
+		public long getItemId(int position) {
+			return 0;
+		}
 	}
 }

@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<inset xmlns:android="http://schemas.android.com/apk/res/android" >
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item
+        android:right="0.5dp"
+        android:top="0.5dp">
+        <shape>
+            <solid android:color="#ffffff" />
 
-    <shape android:shape="rectangle" >
-        <stroke
-            android:width="0.5dp"
-            android:color="#ff33b5e5" />
+            <stroke
+                android:width="0.5dp"
+                android:color="#ff33b5e5" />
+        </shape>
+    </item>
 
-        <solid android:color="#ffffff" />
-    </shape>
-
-</inset>
+</layer-list>

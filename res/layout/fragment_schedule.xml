@@ -5,13 +5,14 @@
     android:orientation="vertical" >
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:background="@drawable/schedule_header_border"
             android:padding="5dp"
             android:text="@string/period"
@@ -21,6 +22,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:background="@drawable/schedule_header_border"
             android:padding="5dp"
             android:text="@string/repayment"
@@ -30,6 +32,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:background="@drawable/schedule_header_border"
             android:padding="5dp"
             android:text="@string/interest"
@@ -39,6 +42,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:background="@drawable/schedule_header_border"
             android:padding="5dp"
             android:text="@string/payment"
@@ -48,6 +52,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:background="@drawable/schedule_header_border"
             android:padding="5dp"
             android:text="@string/loan_left"
@@ -57,6 +62,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:background="@drawable/schedule_header_border"
             android:padding="5dp"
             android:text="@string/misc"
@@ -66,7 +72,7 @@
 
     <ListView
         android:id="@id/android:list"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/schedule_border"
         android:divider="#ff33b5e5"

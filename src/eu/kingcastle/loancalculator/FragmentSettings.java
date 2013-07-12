@@ -27,6 +27,8 @@ public class FragmentSettings extends Fragment {
 	private Button buttonRepaymentMode;
 	private Button buttonRepaymentPeriod;
 	private SeekBar seekBarInterest;
+	private TextView textInterestRate;
+	private TextView textRuntime;
 	private TextView textInterestCurrent;
 	private TextView textLoanAmount;
 	private EditText editAmountLoan;
@@ -50,6 +52,8 @@ public class FragmentSettings extends Fragment {
 		textInterestCurrent = ((TextView) view
 				.findViewById(R.id.textInterestCurrent));
 		textLoanAmount = ((TextView) view.findViewById(R.id.textLoanAmount));
+		textInterestRate = ((TextView) view.findViewById(R.id.textInterest));
+		textRuntime = ((TextView) view.findViewById(R.id.textRuntime));
 		// textResult = ((TextView) view.findViewById(R.id.textReslt));
 		editAmountLoan = ((EditText) view.findViewById(R.id.editAmountLoan));
 		editLife = ((EditText) view.findViewById(R.id.editLife));
@@ -163,6 +167,33 @@ public class FragmentSettings extends Fragment {
 			public void onClick(View v) {
 				FragmentManager fm = getActivity().getSupportFragmentManager();
 				DFragmentHelp help = new DFragmentHelp();
+				Bundle data = new Bundle();
+				data.putInt("helpStringId", R.string.loan_amount_help);
+				help.setArguments(data);
+				help.show(fm, "fragment_help");
+			}
+		});
+		textInterestRate.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				FragmentManager fm = getActivity().getSupportFragmentManager();
+				DFragmentHelp help = new DFragmentHelp();
+				Bundle data = new Bundle();
+				data.putInt("helpStringId", R.string.interest_rate_help);
+				help.setArguments(data);
+				help.show(fm, "fragment_help");
+			}
+		});
+		textRuntime.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				FragmentManager fm = getActivity().getSupportFragmentManager();
+				DFragmentHelp help = new DFragmentHelp();
+				Bundle data = new Bundle();
+				data.putInt("helpStringId", R.string.runtime_help);
+				help.setArguments(data);
 				help.show(fm, "fragment_help");
 			}
 		});

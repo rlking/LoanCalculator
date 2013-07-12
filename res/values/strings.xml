@@ -10,15 +10,18 @@
     <!-- loan amount -->
     <string name="loan_amount">Loan amount</string>
     <string name="loan_amount_default">100000</string>
+    <string name="loan_amount_help">This is the received amount of money from the lender, also called principal.</string>
     <string name="invalidInputAmountLoan">Enter a valid loan amount, for instance 1000</string>
     <!-- runtime -->
     <string name="runtime">Runtime</string>
     <string name="runtime_default">5</string>
+    <string name="runtime_help">This is the number of years in which the loan has to be paid back. If a different repayment period is chosen, then the years will be split up into shorter periods.</string>
     <string name="invalidInputLife">Enter a valid lifetime of the loan, for instance 5</string>
     <string name="calculate">Show plan</string>
     <!-- interest -->
     <string name="interest">Interest</string>
     <string name="interest_rate">Interest rate</string>
+    <string name="interest_rate_help">This is the interest rate per year that has to be paid. If a different repayment period is chosen, then the partial interest rate is charged in the shorter periods during the year.</string>
     <string name="interest_rate_default">5% p.a.</string>
     <!-- loan processing fee -->
     <string name="processing_fee">Loan processing fee</string>

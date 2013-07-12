@@ -26,7 +26,7 @@
     <!-- loan processing fee -->
     <string name="processing_fee">Loan processing fee</string>
     <string name="processing_fee_default">0.0%</string>
-    <string name="processing_fee_help">Percentual amount of the loan, paid immediately after the loan is granted.</string>
+    <string name="processing_fee_help">Percentual amount of the loan, paid immediately after the loan is granted. In the calculation the loan amount is increased by this value, so that the actual money received is the same as in the input field.</string>
     <!-- activity charge -->
     <string name="activity_charge">Activity charge</string>
     <string name="activity_charge_help">Activity charge is paid per year. Activity charge is as usual not included in the effective rate calculation.</string>

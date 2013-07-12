@@ -34,8 +34,9 @@ public class Loan implements Parcelable {
 	public double getAnnuity() {
 		double periodInterestRate = interestRatePerAnnum / time.getPeriod();
 		int periodLifeTime = lifeTime * time.getPeriod();
+		double amountLoanWithFee = amountLoan / (1 - processingFee);
 
-		double A = amountLoan
+		double A = amountLoanWithFee
 				* ((periodInterestRate * Math.pow(periodInterestRate + 1,
 						periodLifeTime)) / (Math.pow(periodInterestRate + 1,
 						periodLifeTime) - 1));
@@ -50,7 +51,8 @@ public class Loan implements Parcelable {
 		final double A = getAnnuity();
 		double interestToPay = 0;
 		double repaymentOfLoan = 0;
-		double restOfLoan = amountLoan;
+		double amountLoanWithFee = amountLoan / (1 - processingFee);
+		double restOfLoan = amountLoanWithFee;
 
 		// DecimalFormat df = new DecimalFormat("#.##");
 		DecimalFormat df = new DecimalFormat("#");

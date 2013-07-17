@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/menu_send_via_email"
+        android:showAsAction="always"
+        android:title="@string/send_via_email"/>
+    <item
+        android:id="@+id/menu_copy_to_clipboard"
+        android:showAsAction="always"
+        android:title="@string/copy_to_clipboard"/>
+
+</menu>

@@ -1,6 +1,6 @@
 package eu.kingcastle.loancalculator;
 
-import eu.kingcastle.loancalculator.R;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -8,6 +8,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 public class ActivityMain extends FragmentActivity {
 	public static final int ITEM_ID_SETTINGS_ADV = 0;
@@ -69,14 +71,39 @@ public class ActivityMain extends FragmentActivity {
 	public boolean onCreateOptionsMenu(final Menu menu) {
 		getMenuInflater().inflate(R.menu.main_menu, menu);
 		this.menu = menu;
+		menu.getItem(0).setVisible(false);
+		menu.getItem(1).setVisible(false);
 		return super.onCreateOptionsMenu(menu);
 	}
-	
+
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
-		
-		
+		if (mViewPager.getCurrentItem() == ITEM_ID_SCHEDULE) {
+			menu.getItem(0).setVisible(true);
+			menu.getItem(1).setVisible(true);
+		} else {
+			menu.getItem(0).setVisible(false);
+			menu.getItem(1).setVisible(false);
+		}
+
 		return super.onPrepareOptionsMenu(menu);
+	}
+
+	@Override
+	@SuppressWarnings("deprecation")
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.menu_send_via_email:
+			break;
+		case R.id.menu_copy_to_clipboard:
+			android.text.ClipboardManager clipboard = (android.text.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+			clipboard.setText("text to clip");
+			Toast.makeText(this, getString(R.string.copied_to_clipboard),
+					Toast.LENGTH_SHORT).show();
+			break;
+		}
+
+		return super.onOptionsItemSelected(item);
 	}
 
 	public class MyPagerAdapter extends FragmentPagerAdapter {

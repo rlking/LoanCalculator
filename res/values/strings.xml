@@ -35,6 +35,7 @@
     <string name="amortisationSchedule">Amortization schedule</string>
     <string name="send_via_email">Send via email</string>
     <string name="copy_to_clipboard">Copy to clipboard</string>
+    <string name="copied_to_clipboard">Copied to clipboard.</string>
     <string name="period">Period</string>
     <string name="repayment">Repayment</string>
     <string name="payment">Payment</string>

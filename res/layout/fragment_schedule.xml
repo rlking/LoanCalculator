@@ -32,7 +32,8 @@
             android:background="@drawable/schedule_header_border"
             android:padding="5dp"
             android:text="@string/period"
-            android:textColor="#ffffff" >
+            android:textColor="#ffffff" 
+            android:gravity="center">
         </TextView>
 
         <!--
@@ -43,7 +44,8 @@
             android:background="@drawable/schedule_header_border"
             android:padding="5dp"
             android:text="@string/repayment"
-            android:textColor="#ffffff" >
+            android:textColor="#ffffff" 
+            android:gravity="center" >
         </TextView>
         -->
 
@@ -54,7 +56,8 @@
             android:background="@drawable/schedule_header_border"
             android:padding="5dp"
             android:text="@string/interest"
-            android:textColor="#ffffff" >
+            android:textColor="#ffffff" 
+            android:gravity="center" >
         </TextView>
 
         <TextView
@@ -64,7 +67,8 @@
             android:background="@drawable/schedule_header_border"
             android:padding="5dp"
             android:text="@string/payment"
-            android:textColor="#ffffff" >
+            android:textColor="#ffffff"  
+            android:gravity="center">
         </TextView>
 
         <TextView
@@ -74,7 +78,8 @@
             android:background="@drawable/schedule_header_border"
             android:padding="5dp"
             android:text="@string/loan_left"
-            android:textColor="#ffffff" >
+            android:textColor="#ffffff" 
+            android:gravity="center" >
         </TextView>
 
         <!--
@@ -85,7 +90,8 @@
             android:background="@drawable/schedule_header_border"
             android:padding="5dp"
             android:text="@string/misc"
-            android:textColor="#ffffff" >
+            android:textColor="#ffffff" 
+            android:gravity="center" >
         </TextView>
         -->
     </LinearLayout>

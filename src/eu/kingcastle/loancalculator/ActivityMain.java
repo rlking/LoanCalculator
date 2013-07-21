@@ -1,6 +1,7 @@
 package eu.kingcastle.loancalculator;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -94,10 +95,24 @@ public class ActivityMain extends FragmentActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.menu_send_via_email:
+			Intent i = new Intent(Intent.ACTION_SEND);
+			i.setType("message/rfc822");
+			i.putExtra(Intent.EXTRA_EMAIL,
+					new String[] { "recipient@example.com" });
+			i.putExtra(Intent.EXTRA_SUBJECT, "subject of email");
+			i.putExtra(Intent.EXTRA_TEXT, settings.getLoan()
+					.getScheduleAsAsciiTable());
+			try {
+				startActivity(Intent.createChooser(i, "Send mail..."));
+			} catch (android.content.ActivityNotFoundException ex) {
+				Toast.makeText(this, "There are no email clients installed.",
+						Toast.LENGTH_SHORT).show();
+			}
+
 			break;
 		case R.id.menu_copy_to_clipboard:
 			android.text.ClipboardManager clipboard = (android.text.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-			clipboard.setText("text to clip");
+			clipboard.setText(settings.getLoan().getScheduleAsAsciiTable());
 			Toast.makeText(this, getString(R.string.copied_to_clipboard),
 					Toast.LENGTH_SHORT).show();
 			break;

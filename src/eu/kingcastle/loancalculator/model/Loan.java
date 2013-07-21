@@ -79,6 +79,20 @@ public class Loan implements Parcelable {
 		return schedule;
 	}
 
+	public String getScheduleAsAsciiTable() {
+		String[][] scheduleRaw = getSchedule();
+		String schedule = "";
+
+		for (int i = 0; i < scheduleRaw.length; i++) {
+			for (int j = 0; j < scheduleRaw[i].length; j++) {
+				schedule += scheduleRaw[i][j] + " ";
+			}
+			schedule += "\n";
+		}
+
+		return schedule;
+	}
+
 	private String getPeriodReadable(int periodLifetime) {
 		switch (time) {
 		case ANNUAL:

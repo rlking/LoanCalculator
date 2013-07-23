@@ -1,35 +1,36 @@
 package eu.kingcastle.loancalculator;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
 public class DFragmentHelp extends DialogFragment {
-	private TextView textHelp;
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.fragment_help_dialog, container,
-				false);
-		getDialog().setTitle(R.string.help);
-		getDialog().setCanceledOnTouchOutside(true);
-		textHelp = (TextView) view.findViewById(R.id.textHelp);
-
+	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		Bundle data = getArguments();
+		int helpStringId = 0;
 		if (data != null) {
-			int helpStringId = data.getInt("helpStringId");
-			if (helpStringId != 0) {
-				textHelp.setText(getString(helpStringId));
-			}
+			helpStringId = data.getInt("helpStringId");
 		}
-		return view;
+
+		return new AlertDialog.Builder(getActivity())
+				// .setIcon(R.drawable.info)
+				.setTitle(R.string.help)
+				.setMessage(helpStringId)
+				.setPositiveButton(android.R.string.ok,
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int whichButton) {
+								;
+							}
+						}).create();
 	}
 
 	/**

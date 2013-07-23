@@ -29,7 +29,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="2.3"
             android:background="@drawable/schedule_header_border"
             android:gravity="center"
             android:padding="5dp"
@@ -52,7 +52,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:background="@drawable/schedule_header_border"
             android:gravity="center"
             android:padding="5dp"
@@ -61,20 +61,22 @@
         </TextView>
 
         <TextView
+            android:id="@+id/text_header_payment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:background="@drawable/schedule_header_border"
             android:gravity="center"
             android:padding="5dp"
             android:text="@string/payment"
+            android:drawableRight="@drawable/info"
             android:textColor="#ffffff" >
         </TextView>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:background="@drawable/schedule_header_border"
             android:gravity="center"
             android:padding="5dp"

@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -73,11 +72,12 @@ public class FragmentSettings extends Fragment {
 				int amountLoan = Integer.parseInt(editAmountLoan.getText()
 						.toString());
 				int life = Integer.parseInt(editLife.getText().toString());
-				
+
 				final Loan loan = new Loan(amountLoan, interestRate, life,
 						repaymentMode, repaymentPeriod);
 
-				((ActivityMain) getActivity()).settingsAdv.addAdvancedValues(loan);
+				((ActivityMain) getActivity()).settingsAdv
+						.addAdvancedValues(loan);
 				((ActivityMain) getActivity()).schedule.updateTable(loan, true);
 			}
 		});
@@ -161,42 +161,12 @@ public class FragmentSettings extends Fragment {
 			}
 		});
 
-		textLoanAmount.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				FragmentManager fm = getActivity().getSupportFragmentManager();
-				DFragmentHelp help = new DFragmentHelp();
-				Bundle data = new Bundle();
-				data.putInt("helpStringId", R.string.loan_amount_help);
-				help.setArguments(data);
-				help.show(fm, "fragment_help");
-			}
-		});
-		textInterestRate.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				FragmentManager fm = getActivity().getSupportFragmentManager();
-				DFragmentHelp help = new DFragmentHelp();
-				Bundle data = new Bundle();
-				data.putInt("helpStringId", R.string.interest_rate_help);
-				help.setArguments(data);
-				help.show(fm, "fragment_help");
-			}
-		});
-		textRuntime.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				FragmentManager fm = getActivity().getSupportFragmentManager();
-				DFragmentHelp help = new DFragmentHelp();
-				Bundle data = new Bundle();
-				data.putInt("helpStringId", R.string.runtime_help);
-				help.setArguments(data);
-				help.show(fm, "fragment_help");
-			}
-		});
+		DFragmentHelp.addClickListener(textLoanAmount, getActivity(),
+				R.string.loan_amount_help);
+		DFragmentHelp.addClickListener(textInterestRate, getActivity(),
+				R.string.interest_rate_help);
+		DFragmentHelp.addClickListener(textRuntime, getActivity(),
+				R.string.runtime_help);
 
 		return view;
 	}

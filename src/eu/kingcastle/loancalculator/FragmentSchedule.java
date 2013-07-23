@@ -20,6 +20,7 @@ public class FragmentSchedule extends ListFragment {
 	private Loan loan;
 	private final ArrayList<String[]> data = new ArrayList<String[]>();
 	private ScheduleAdapter arrayAdapter;
+	private TextView textHeaderPayment;
 	private LinearLayout layoutNoSchedule;
 
 	public FragmentSchedule() {
@@ -30,6 +31,8 @@ public class FragmentSchedule extends ListFragment {
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_schedule, container,
 				false);
+		textHeaderPayment = (TextView) view
+				.findViewById(R.id.text_header_payment);
 		layoutNoSchedule = (LinearLayout) view
 				.findViewById(R.id.layout_no_schedule);
 
@@ -39,6 +42,9 @@ public class FragmentSchedule extends ListFragment {
 				loan = tmpLoan;
 			}
 		}
+
+		DFragmentHelp.addClickListener(textHeaderPayment, getActivity(),
+				R.string.payment_help);
 
 		return view;
 	}
@@ -78,7 +84,7 @@ public class FragmentSchedule extends ListFragment {
 		if (arrayAdapter == null) {
 			return;
 		}
-		
+
 		// hide no schedule textview
 		layoutNoSchedule.setVisibility(View.GONE);
 

@@ -55,7 +55,7 @@ public class Loan implements Parcelable {
 		double restOfLoan = amountLoanWithFee;
 
 		// DecimalFormat df = new DecimalFormat("#.##");
-		DecimalFormat df = new DecimalFormat("#");
+		DecimalFormat df = new DecimalFormat("###,###");
 
 		for (int period = 0; period < periodLifeTime; period++) {
 			String[] row = new String[6];

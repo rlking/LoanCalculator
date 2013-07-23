@@ -41,6 +41,7 @@
     <string name="payment">Payment</string>
     <string name="loan_left">Loan left</string>
     <string name="misc">Misc</string>
+    <string name="no_schedule">No schedule calculated yet.</string>
     <string name="repayment_period">Repayment period</string>
     <string name="repayment_period_annual">Annual</string>
     <string name="repayment_period_quarterly">Quarterly</string>

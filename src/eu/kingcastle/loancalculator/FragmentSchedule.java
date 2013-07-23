@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import eu.kingcastle.loancalculator.model.Loan;
 
@@ -19,6 +20,7 @@ public class FragmentSchedule extends ListFragment {
 	private Loan loan;
 	private final ArrayList<String[]> data = new ArrayList<String[]>();
 	private ScheduleAdapter arrayAdapter;
+	private LinearLayout layoutNoSchedule;
 
 	public FragmentSchedule() {
 	}
@@ -28,6 +30,8 @@ public class FragmentSchedule extends ListFragment {
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_schedule, container,
 				false);
+		layoutNoSchedule = (LinearLayout) view
+				.findViewById(R.id.layout_no_schedule);
 
 		if (savedInstanceState != null) {
 			Loan tmpLoan = savedInstanceState.getParcelable("loan");
@@ -57,6 +61,8 @@ public class FragmentSchedule extends ListFragment {
 		// up the loading dialog
 		if (loan != null) {
 			updateTable(loan, false);
+		} else {
+			layoutNoSchedule.setVisibility(View.VISIBLE);
 		}
 	}
 
@@ -72,6 +78,9 @@ public class FragmentSchedule extends ListFragment {
 		if (arrayAdapter == null) {
 			return;
 		}
+		
+		// hide no schedule textview
+		layoutNoSchedule.setVisibility(View.GONE);
 
 		new AsyncTask<Loan, Void, ArrayList<String[]>>() {
 			ProgressDialog progress;

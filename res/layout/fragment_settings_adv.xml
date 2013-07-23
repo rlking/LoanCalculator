@@ -25,7 +25,7 @@
                 android:id="@+id/editActivityCharge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="7"
+                android:ems="6"
                 android:inputType="number"
                 android:text="@string/activity_charge_default" >
             </EditText>

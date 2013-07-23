@@ -65,7 +65,7 @@ public class ActivityMain extends FragmentActivity {
 		}
 
 		// set current to settings
-		mViewPager.setCurrentItem(1);
+		mViewPager.setCurrentItem(ITEM_ID_SETTINGS);
 	}
 
 	@Override

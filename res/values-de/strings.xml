@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- general -->
+    <string name="app_name">Kredit Rechner</string>
+    <string name="settings">Einstellungen</string>
+    <string name="settings_advanced">Erweiterte Einstellungen</string>
+    <string name="help">Hilfe</string>
+    <string name="loading">Lade …</string>
+    <!-- loan amount -->
+    <string name="loan_amount">Kreditsumme</string>
+    <string name="loan_amount_default">100000</string>
+    <string name="loan_amount_help">Das ist der Betrag an Geld, der von der Bank an Sie ausbezahlt wird.</string>
+    <string name="invalidInputAmountLoan">Geben Sie eine gültige Kreditsumme ein, z.B.: 1000</string>
+    <!-- runtime -->
+    <string name="runtime">Laufzeit</string>
+    <string name="runtime_default">5</string>
+    <string name="runtime_help">Das ist der Rückzahlungszeitraum in Jahren. Wenn eine andere Rückzahlungsperiode (z.B.: monatlich) gewählt wird, werden die Jahre automatisch in kürzere Perioden umgerechnet.</string>
+    <string name="invalidInputLife">Geben Sie eine gültige Laufzeit ein, z.B.: 5</string>
+    <string name="calculate">Zeige Plan</string>
+    <!-- interest -->
+    <string name="interest">Zinsen</string>
+    <string name="interest_rate">Zinssatz</string>
+    <string name="interest_rate_help">Das ist der Zinssatz der jährlich zur Berechnung herangezogen wird. Wenn eine andere Rückzahlungsperiode (z.B.: monatlich) gewählt wird, wird automatisch der entsprechende unterjährige Zinssatz verwendet.</string>
+    <string name="interest_rate_default">5% p.a.</string>
+    <!-- loan processing fee -->
+    <string name="processing_fee">Bereitstellungsgebühr</string>
+    <string name="processing_fee_default">0.0%</string>
+    <string name="processing_fee_help">Das ist der prozentuelle Anteil der Kreditsumme, der sofort bezahlt werden muss wenn der Kredit bereitgestellt wird. In der Berechnung wird einfach die Kreditsumme um diesen Wert erhöht, sodass der ausbezahlte Betrag dem in der Eingabe entspricht.</string>
+    <!-- activity charge -->
+    <string name="activity_charge">Kontoführungsgebühr</string>
+    <string name="activity_charge_help">Die Kontoführungsgebühr wird pro Jahr bezahlt. Sie wird üblicherweise nicht in der Berechnung des Effektivzinses berücksichtigt.</string>
+    <string name="activity_charge_default">0</string>
+    <!-- misc -->
+    <string name="amortisationSchedule">Tilgungsplan</string>
+    <string name="send_via_email">Sende via Email</string>
+    <string name="copy_to_clipboard">Kopieren</string>
+    <string name="copied_to_clipboard">In die Zwischenablage kopiert.</string>
+    <string name="period">Periode</string>
+    <string name="repayment">Tilgung</string>
+    <string name="payment">Zahlung</string>
+    <string name="payment_help">Das ist der eigentliche Betrag, der von Ihrem Konto abgebucht wird. Die Zahlung ist die Summe aus Zinsen, Tilgung (der Betrag der den austehenden Kredit mindert) und der Kontoführungsgebühr.</string>
+    <string name="loan_left">Kredit</string>
+    <string name="misc">Sonstig</string>
+    <string name="no_schedule">Kein Tilgungsplan berechnet.</string>
+    <string name="repayment_period">Rückzahlungsperiode</string>
+    <string name="repayment_period_annual">Jährlich</string>
+    <string name="repayment_period_quarterly">Pro Quartal</string>
+    <string name="repayment_period_monthly">Monatlich</string>
+    <string name="repayment_mode">Rückzahlungsmodus</string>
+    <string name="repayment_mode_annuity">Annuität</string>
+    <string name="repayment_mode_bullet">Endfällig (nicht implementiert)</string>
+    <string name="repayment_mode_schedule">Tilgung (nicht implementiert)</string>
+
+</resources>

@@ -26,7 +26,7 @@
     <!-- loan processing fee -->
     <string name="processing_fee">Loan processing fee</string>
     <string name="processing_fee_default">0.0%</string>
-    <string name="processing_fee_help">Percentual amount of the loan, paid immediately after the loan is granted. In the calculation the loan amount is increased by this value, so that the actual money received is the same as in the input field.</string>
+    <string name="processing_fee_help">Percentual amount of the loan, paid immediately after the loan is granted. In the calculation the loan amount is simply increased by this value, so that the actual money received is the same as in the input field.</string>
     <!-- activity charge -->
     <string name="activity_charge">Activity charge</string>
     <string name="activity_charge_help">Activity charge is paid per year. Activity charge is as usual not included in the effective rate calculation.</string>
@@ -40,7 +40,7 @@
     <string name="repayment">Repayment</string>
     <string name="payment">Payment</string>
     <string name="payment_help">This is the actual amount, that your bank account will be charged. The payment is the sum of interest, repayment (the amount which lowers your loan) and activity charge.</string>
-    <string name="loan_left">Loan left</string>
+    <string name="loan_left">Loan</string>
     <string name="misc">Misc</string>
     <string name="no_schedule">No schedule calculated yet.</string>
     <string name="repayment_period">Repayment period</string>

@@ -69,15 +69,7 @@ public class FragmentSettings extends Fragment {
 					return;
 				}
 
-				int amountLoan = Integer.parseInt(editAmountLoan.getText()
-						.toString());
-				int life = Integer.parseInt(editLife.getText().toString());
-
-				final Loan loan = new Loan(amountLoan, interestRate, life,
-						repaymentMode, repaymentPeriod);
-
-				((ActivityMain) getActivity()).settingsAdv
-						.addAdvancedValues(loan);
+				final Loan loan = ((ActivityMain) getActivity()).getLoan();
 				((ActivityMain) getActivity()).schedule.updateTable(loan, true);
 			}
 		});

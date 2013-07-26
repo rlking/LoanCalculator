@@ -1,7 +1,6 @@
 package eu.kingcastle.loancalculator;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -11,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+import eu.kingcastle.loancalculator.model.Loan;
 
 public class ActivityMain extends FragmentActivity {
 	public static final int ITEM_ID_SETTINGS_ADV = 0;
@@ -31,6 +31,9 @@ public class ActivityMain extends FragmentActivity {
 
 		myPagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
 		mViewPager = (ViewPager) findViewById(R.id.pager);
+		// prevent android from unloading the pages
+		// which what cause overhead in storing/passing data
+		mViewPager.setOffscreenPageLimit(3);
 		mViewPager.setAdapter(myPagerAdapter);
 
 		// get or create settings fragment
@@ -72,20 +75,20 @@ public class ActivityMain extends FragmentActivity {
 	public boolean onCreateOptionsMenu(final Menu menu) {
 		getMenuInflater().inflate(R.menu.main_menu, menu);
 		this.menu = menu;
-		//menu.getItem(0).setVisible(false);
-		//menu.getItem(1).setVisible(false);
+		// menu.getItem(0).setVisible(false);
+		// menu.getItem(1).setVisible(false);
 		return super.onCreateOptionsMenu(menu);
 	}
 
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
-//		if (mViewPager.getCurrentItem() == ITEM_ID_SCHEDULE) {
-//			menu.getItem(0).setVisible(true);
-//			menu.getItem(1).setVisible(true);
-//		} else {
-//			menu.getItem(0).setVisible(false);
-//			menu.getItem(1).setVisible(false);
-//		}
+		// if (mViewPager.getCurrentItem() == ITEM_ID_SCHEDULE) {
+		// menu.getItem(0).setVisible(true);
+		// menu.getItem(1).setVisible(true);
+		// } else {
+		// menu.getItem(0).setVisible(false);
+		// menu.getItem(1).setVisible(false);
+		// }
 
 		return super.onPrepareOptionsMenu(menu);
 	}
@@ -94,25 +97,9 @@ public class ActivityMain extends FragmentActivity {
 	@SuppressWarnings("deprecation")
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case R.id.menu_send_via_email:
-			Intent i = new Intent(Intent.ACTION_SEND);
-			i.setType("message/rfc822");
-			i.putExtra(Intent.EXTRA_EMAIL,
-					new String[] { "recipient@example.com" });
-			i.putExtra(Intent.EXTRA_SUBJECT, "subject of email");
-			i.putExtra(Intent.EXTRA_TEXT, settings.getLoan()
-					.getScheduleAsAsciiTable());
-			try {
-				startActivity(Intent.createChooser(i, "Send mail..."));
-			} catch (android.content.ActivityNotFoundException ex) {
-				Toast.makeText(this, "There are no email clients installed.",
-						Toast.LENGTH_SHORT).show();
-			}
-
-			break;
 		case R.id.menu_copy_to_clipboard:
 			android.text.ClipboardManager clipboard = (android.text.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-			clipboard.setText(settings.getLoan().getScheduleAsAsciiTable());
+			clipboard.setText(getLoan().getScheduleAsAsciiTable());
 			Toast.makeText(this, getString(R.string.copied_to_clipboard),
 					Toast.LENGTH_SHORT).show();
 			break;
@@ -165,5 +152,11 @@ public class ActivityMain extends FragmentActivity {
 				throw new IllegalArgumentException("pager item not implemented");
 			}
 		}
+	}
+
+	public Loan getLoan() {
+		Loan loan = settings.getLoan();
+		settingsAdv.addAdvancedValues(loan);
+		return loan;
 	}
 }

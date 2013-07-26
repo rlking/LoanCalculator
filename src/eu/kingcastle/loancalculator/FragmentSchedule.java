@@ -88,7 +88,7 @@ public class FragmentSchedule extends ListFragment {
 		// hide no schedule textview
 		layoutNoSchedule.setVisibility(View.GONE);
 
-		new AsyncTask<Loan, Void, ArrayList<String[]>>() {
+		new AsyncTask<Loan, Void, String[][]>() {
 			ProgressDialog progress;
 
 			@Override
@@ -101,17 +101,17 @@ public class FragmentSchedule extends ListFragment {
 			}
 
 			@Override
-			protected ArrayList<String[]> doInBackground(Loan... params) {
-				String schedule[][] = params[0].getSchedule();
-				data.clear();
-				for (int i = 0; i < schedule.length; i++) {
-					data.add(schedule[i]);
-				}
-				return data;
+			protected String[][] doInBackground(Loan... params) {
+				return params[0].getSchedule();
 			}
 
 			@Override
-			protected void onPostExecute(ArrayList<String[]> result) {
+			protected void onPostExecute(String[][] result) {
+				// dataset changes must happen on ui thread
+				data.clear();
+				for (int i = 0; i < result.length; i++) {
+					data.add(result[i]);
+				}
 				arrayAdapter.notifyDataSetChanged();
 				if (showLoading) {
 					progress.cancel();
@@ -157,6 +157,9 @@ public class FragmentSchedule extends ListFragment {
 			ViewHolder holder;
 
 			final String[] itemData = data.get(position);
+			if (itemData == null) {
+				return null;
+			}
 			final ItemType type = ItemType.values()[getItemViewType(position)];
 
 			// create new view if null or type changed

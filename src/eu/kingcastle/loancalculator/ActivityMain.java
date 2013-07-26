@@ -72,20 +72,20 @@ public class ActivityMain extends FragmentActivity {
 	public boolean onCreateOptionsMenu(final Menu menu) {
 		getMenuInflater().inflate(R.menu.main_menu, menu);
 		this.menu = menu;
-		menu.getItem(0).setVisible(false);
-		menu.getItem(1).setVisible(false);
+		//menu.getItem(0).setVisible(false);
+		//menu.getItem(1).setVisible(false);
 		return super.onCreateOptionsMenu(menu);
 	}
 
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
-		if (mViewPager.getCurrentItem() == ITEM_ID_SCHEDULE) {
-			menu.getItem(0).setVisible(true);
-			menu.getItem(1).setVisible(true);
-		} else {
-			menu.getItem(0).setVisible(false);
-			menu.getItem(1).setVisible(false);
-		}
+//		if (mViewPager.getCurrentItem() == ITEM_ID_SCHEDULE) {
+//			menu.getItem(0).setVisible(true);
+//			menu.getItem(1).setVisible(true);
+//		} else {
+//			menu.getItem(0).setVisible(false);
+//			menu.getItem(1).setVisible(false);
+//		}
 
 		return super.onPrepareOptionsMenu(menu);
 	}

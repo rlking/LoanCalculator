@@ -6,6 +6,7 @@ import com.google.common.base.Strings;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 public class Loan implements Parcelable {
 	private final double amountLoan;
@@ -79,18 +80,41 @@ public class Loan implements Parcelable {
 		return schedule;
 	}
 
+	/**
+	 * returns formatted cells with 6 columns.
+	 * 
+	 * @return
+	 */
 	public String getScheduleAsAsciiTable() {
 		String[][] scheduleRaw = getSchedule();
-		String schedule = "";
+		StringBuilder schedule = new StringBuilder();
+
+		// loan amount will be the largest number in the table
+		// so this gives a good size for the table
+		int cellWidth = (amountLoan + "").length();
+		if (cellWidth < 5) {
+			cellWidth = 5;
+		}
+		schedule.append(Strings.padStart("1*", cellWidth, ' '));
+		schedule.append(Strings.padStart("2*", cellWidth, ' '));
+		schedule.append(Strings.padStart("3*", cellWidth, ' '));
+		schedule.append(Strings.padStart("4*", cellWidth, ' '));
+		schedule.append(Strings.padStart("5*", cellWidth, ' '));
+		schedule.append(Strings.padStart("6*", cellWidth, ' '));
+		schedule.append("\n");
+		schedule.append(Strings.padStart("", cellWidth * 6, '-'));
+		schedule.append("\n");
 
 		for (int i = 0; i < scheduleRaw.length; i++) {
 			for (int j = 0; j < scheduleRaw[i].length; j++) {
-				schedule += scheduleRaw[i][j] + " ";
+				schedule.append(Strings.padStart(scheduleRaw[i][j], cellWidth,
+						' '));
 			}
-			schedule += "\n";
+			schedule.append("\n");
 		}
+		Log.d("", schedule.toString());
 
-		return schedule;
+		return schedule.toString();
 	}
 
 	private String getPeriodReadable(int periodLifetime) {
